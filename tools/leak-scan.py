@@ -55,6 +55,8 @@ RULES += [
 # The plugin host requires a directory named after it (".<name>-plugin"); that path is not attribution.
 VENDOR = re.compile(r"(?<!\.)\b(" + j("cla", "ude") + "|" + j("anthro", "pic") + r")\b(?!-plugin)(\s+\w+)?", re.I)
 DEPENDENCY_NAME = j("cla", "ude") + " code"
+# The host's command line as typed in a terminal: its plugin subcommand, or the bare command in backticks.
+HOST_CMD = re.compile(r"\b" + j("cla", "ude") + r" plugin\b|`" + j("cla", "ude") + "`", re.I)
 # The one personal-account reference that may appear: this repository's own published name, in install lines.
 PUBLIC_REPO = j("craig", "mock") + "/ai-tooling"
 
@@ -91,7 +93,7 @@ def scan_text(label: str, text: str, vendor_ok: bool, out: list) -> None:
                 out.append("%s:%d: [%s] %s" % (label, n, rule, line.strip()[:120]))
                 break
         # In an allowed file the host's real plugin command line is a dependency reference too.
-        vline = re.sub(r"\bclaude plugin\b", "", line, flags=re.I) if vendor_ok else line
+        vline = HOST_CMD.sub("", line) if vendor_ok else line
         for m in VENDOR.finditer(vline):
             if vendor_ok and m.group(0).strip().lower() == DEPENDENCY_NAME:
                 continue

@@ -19,25 +19,55 @@ Everything is plain Python 3 (standard library only) and Markdown. It runs on ma
 
 ## Install
 
-Requirements: Python 3.9 or newer and git. The commands below install from the `craigmock/ai-tooling` repository
-on GitHub. You do not need your own copy of it first (see "New to git?" below).
+The commands below install from the `craigmock/ai-tooling` repository on GitHub. You do not need your own copy
+of it first (see "New to git?" below).
 
-### Claude Code
+### Step 1: install Python and git
+
+The skills run small Python 3 scripts, so you need **Python 3.9 or newer** and **git**. Check what you have by
+typing this in a terminal (macOS Terminal, Windows PowerShell, or a Linux shell):
+
+```bash
+python3 --version
+git --version
+```
+
+If either command says "not found", install it with your system's package manager. Run these in a terminal:
+
+| System | Install Python 3 | Install git |
+|--------|------------------|-------------|
+| macOS (needs [Homebrew](https://brew.sh)) | `brew install python` | `brew install git` |
+| Windows (winget is built in to Windows 10 and 11) | `winget install Python.Python.3.12` | `winget install Git.Git` |
+| Linux (Debian, Ubuntu) | `sudo apt install python3` | `sudo apt install git` |
+
+Close and reopen the terminal afterwards so it finds the new programs. On Windows, if `python3` is not found
+after installing, try `python --version`. If that works, tell your assistant to use `python` wherever a skill
+says `python3`.
+
+### Step 2a: Claude Code
+
+The `/plugin` lines below are **not terminal commands**. You type them **inside a Claude Code session**:
+
+1. Open a terminal and start Claude Code by typing `claude` and pressing Enter.
+2. At the Claude Code prompt, type this line and press Enter:
 
 ```
 /plugin install ai-tooling --marketplace craigmock/ai-tooling
 ```
 
-If your version of Claude Code does not accept that line, add the source and install in two steps:
+If your version of Claude Code does not accept that line, add the source and install in two steps (still inside
+the same Claude Code session):
 
 ```
 /plugin marketplace add craigmock/ai-tooling
 /plugin install ai-tooling@ai-tooling
 ```
 
-### Codex
+Then run a skill, for example `/docs`, to start the setup wizard.
 
-Codex has no plugin marketplace, so a small script copies the skills to the folder Codex reads
+### Step 2b: Codex
+
+(Skip this if you use Claude Code.) Codex has no plugin marketplace, so a small script copies the skills to the folder Codex reads
 (`~/.agents/skills`). Clone the repository once, then run the script from inside it:
 
 ```bash
@@ -67,9 +97,10 @@ install line above reads the skills straight from the publisher's GitHub reposit
 and you never need to learn git for ordinary use.
 
 **What happens when the publisher makes an update?** Nothing changes on your computer by itself. When you want
-the latest version, refresh and update:
+the latest version, refresh and update. Unlike the install lines above, these two are **terminal commands**: type
+them in a normal terminal window, not inside a Claude Code session:
 
-```
+```bash
 claude plugin marketplace update ai-tooling
 claude plugin update ai-tooling
 ```
