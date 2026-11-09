@@ -88,6 +88,49 @@ not inside a live Codex session. If a skill cannot find its scripts, tell Codex 
 
 Any assistant that reads `SKILL.md` folders from `~/.agents/skills` can use the Codex steps above.
 
+## Updating
+
+When this repository changes (new skills, fixes, new themes), nothing on your computer changes by itself. You pick
+up the new version when you choose to.
+
+**See what changed first:** https://github.com/craigmock/ai-tooling/commits/main lists every change, newest first.
+Click a commit to see exactly which files it touched.
+
+### Claude Code
+
+Unlike the install lines above, these two are **terminal commands**: type them in a normal terminal window, not
+inside a Claude Code session. The first refreshes the list of what is available from this repository; the second
+installs the new version:
+
+```bash
+claude plugin marketplace update ai-tooling
+claude plugin update ai-tooling
+```
+
+**Then restart Claude Code.** The update is downloaded right away, but Claude Code only starts using it in a new
+session. Quit any open session and start `claude` again.
+
+To check that it worked, run `/setup` or any other skill after restarting. If a skill that should be new is
+missing, run the two commands again and restart once more.
+
+### Codex
+
+Go to the folder where you cloned the repository and run:
+
+```bash
+git pull
+python3 tools/install-codex.py
+```
+
+Restart Codex afterwards. If you installed with `--link`, only `git pull` is needed, then restart.
+
+### What updates never touch
+
+Your setup answers (organization name, colors, fonts, tracking choice) live in a local file outside the repository,
+so an update does not change them. If a future version changes the format of that file so your saved answers are no
+longer valid, the next skill you run starts the setup questions again. To change an answer yourself at any time,
+run `/setup`.
+
 ## New to git? How this works
 
 You can skip this if you already use GitHub.
@@ -96,16 +139,8 @@ You can skip this if you already use GitHub.
 install line above reads the skills straight from the publisher's GitHub repository. You never create a copy,
 and you never need to learn git for ordinary use.
 
-**What happens when the publisher makes an update?** Nothing changes on your computer by itself. When you want
-the latest version, refresh and update. Unlike the install lines above, these two are **terminal commands**: type
-them in a normal terminal window, not inside a Claude Code session:
-
-```bash
-claude plugin marketplace update ai-tooling
-claude plugin update ai-tooling
-```
-
-For Codex, run `git pull` inside your clone and run `python3 tools/install-codex.py` again.
+**What happens when the publisher makes an update?** Nothing changes on your computer by itself. You choose when
+to pick up the latest version. See "Updating" above for the exact steps.
 
 **Will an update erase my settings?** No. Your organization name, colors and choices live in one file on your
 own computer (`~/.config/ai-tooling/config.json`, or `%APPDATA%\ai-tooling\config.json` on Windows). The
