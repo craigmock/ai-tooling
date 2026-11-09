@@ -57,6 +57,8 @@ VENDOR = re.compile(r"(?<!\.)\b(" + j("cla", "ude") + "|" + j("anthro", "pic") +
 DEPENDENCY_NAME = j("cla", "ude") + " code"
 # The host's command line as typed in a terminal: its plugin subcommand, or the bare command in backticks.
 HOST_CMD = re.compile(r"\b" + j("cla", "ude") + r" plugin\b|`" + j("cla", "ude") + "`", re.I)
+# Third-party tools the README may name when recommending them (only in files listed in .attribution-allow).
+THIRD_PARTY = re.compile(j("defense", "claw") + r"(?:-ai-defense)?", re.I)
 # The one personal-account reference that may appear: this repository's own published name, in install lines.
 PUBLIC_REPO = j("craig", "mock") + "/ai-tooling"
 
@@ -88,6 +90,8 @@ def files(root: Path):
 def scan_text(label: str, text: str, vendor_ok: bool, out: list) -> None:
     for n, line in enumerate(text.splitlines(), 1):
         rline = line.replace(PUBLIC_REPO, "")
+        if vendor_ok:
+            rline = THIRD_PARTY.sub("", rline)
         for rule, rx in RULES:
             for m in rx.finditer(rline):
                 out.append("%s:%d: [%s] %s" % (label, n, rule, line.strip()[:120]))

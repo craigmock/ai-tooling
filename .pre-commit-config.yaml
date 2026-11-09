@@ -1,0 +1,8 @@
+# Runs gitleaks on the staged changes before each commit.
+# One-time setup:  python3 -m pip install pre-commit  then  pre-commit install   (inside the repository)
+# Copy this file into your own repositories to get the same protection there.
+repos:
+  - repo: https://github.com/gitleaks/gitleaks
+    rev: v8.30.1
+    hooks:
+      - id: gitleaks

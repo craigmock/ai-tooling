@@ -194,6 +194,53 @@ the leak scan (`tools/leak-scan.py`). The leak scan must pass before this reposi
 fails on private names, local paths, private IP ranges, email addresses, credential shapes and vendor credit
 lines.
 
+## Staying safe
+
+These skills write files and run scripts on your machine, so keep secrets and private names out of what they
+produce. This repository does not try to be a security product. It points you to maintained tools and adds only
+a small check of its own (`tools/leak-scan.py`, which guards this repository's own publishing, and a secrets scan
+that `/docs` runs on documents it creates). Use the layers that fit your situation:
+
+| Layer | What it catches | Notes |
+|-------|-----------------|-------|
+| Good habits | Most accidents | Never paste keys, tokens or passwords into a prompt. Keep them in environment variables or a password manager. Keep `.env` files and config with secrets out of git. |
+| [gitleaks](https://github.com/gitleaks/gitleaks) before each commit | Secrets in the changes you are about to commit | Free and open source. This repository ships a ready `.pre-commit-config.yaml` (setup below). |
+| GitHub secret scanning and push protection | Known secret formats, at push time, even if a local hook is skipped | Turn on under Settings, then Code security. Free for public repositories; for private ones it depends on your GitHub plan. |
+| A guard on the assistant itself (optional) | Risky tool calls, prompts and skills as the assistant works | See "Optional: DefenseClaw" below. |
+
+### Scan before every commit with gitleaks
+
+```bash
+python3 -m pip install pre-commit      # once
+pre-commit install                     # once per repository, from inside it
+```
+
+After that, every `git commit` runs gitleaks on the staged changes and stops if it finds a secret. To use it in
+your own repositories, copy `.pre-commit-config.yaml` into them. To check a repository once without installing the
+hook: `gitleaks detect --source .` (install gitleaks with `brew install gitleaks` or `winget install Gitleaks.Gitleaks`).
+
+### Optional: DefenseClaw
+
+[DefenseClaw](https://github.com/cisco-ai-defense/defenseclaw) is an open-source (Apache-2.0) project from Cisco
+AI Defense. It describes itself as security governance for AI coding agents: it scans skills, plugins and tool
+servers before use, inspects agent activity at run time, and keeps an audit trail. If your organization wants that
+kind of control, it is a reasonable thing to evaluate. A few cautions, because a tool that sits in the path of every
+tool call can also get in the way:
+
+- Check its compatibility page for your assistant before you rely on it. This repository has not tested it with every
+  assistant.
+- Try it on one machine first, pin the version, and learn how to roll back (`defenseclaw rollback`) before you
+  roll it out. A guard that fails closed on an internal error can stop your assistant from running commands.
+- It can interfere with plugin updates. If an update fails after you install it, look at its quarantine and audit
+  records before blaming the plugin.
+- Its documented install is a `curl ... | bash` one-liner. Download the script and read it before running it.
+- It is not a replacement for scanning what you publish. Use gitleaks and push protection as well.
+
+### If a secret does leak
+
+Revoke or rotate the secret first, because anything that was pushed, even for a minute, should be treated as
+exposed. Then remove it from the files and, if needed, from history. Do not rely on deleting the commit alone.
+
 ## Layout
 
 ```
@@ -205,6 +252,7 @@ lib/WIZARD.md                 how a skill runs the wizard
 themes/*.json                 theme presets
 skills/<name>/SKILL.md        one folder per skill, with scripts/ and templates/
 tools/leak-scan.py            publish gate
+.pre-commit-config.yaml       runs gitleaks before each commit
 tests/run-tests.sh            checks
 ```
 
