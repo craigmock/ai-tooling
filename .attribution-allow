@@ -1,0 +1,4 @@
+# Files that may name the assistant tool as a documented dependency, and why.
+# Format: path-glob | reason
+# Only the exact dependency name is allowed in these files; credit lines and trailers never are.
+README.md | Install instructions name the plugin host this repository is a plugin for.

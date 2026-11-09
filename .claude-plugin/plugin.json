@@ -1,0 +1,7 @@
+{
+  "name": "ai-tooling",
+  "description": "Organization-neutral assistant skills with a first-run setup wizard: /setup, /eos session wrap-up, /docs branded HTML documents, /runbook, /loose-ends, /answers decision sheets and /nrp resume prompts, all themed from one local config.",
+  "author": {
+    "name": "ai-tooling contributors"
+  }
+}

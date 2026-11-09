@@ -1,0 +1,11 @@
+{
+  "name": "Slate (dark)",
+  "primary": "#4aa3ff",
+  "accent": "#c297ff",
+  "background": "#14181d",
+  "text": "#e6edf3",
+  "muted": "#9aa7b4",
+  "border": "#2d3640",
+  "font_body": "Segoe UI, Helvetica, Arial, sans-serif",
+  "font_mono": "Consolas, Menlo, monospace"
+}

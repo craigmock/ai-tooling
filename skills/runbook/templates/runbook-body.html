@@ -1,0 +1,142 @@
+<!-- RUNBOOK BODY. Paste after the provenance section of a /docs scaffold, and set
+     data-doc-kind="runbook" on <html>. Every <section data-runbook> is checked by
+     validate-runbook.py; every data-diagram block by validate-doc-diagrams.py. Replace every
+     TODO. A value you could not find stays visible: <span class="rb-gap">?</span>, and gets one
+     line in the gaps section. Never invent a command, host, port or contact. -->
+
+<section id="trigger" data-runbook="trigger">
+<h2>When to use this runbook</h2>
+<ul>
+  <li><strong>Alert / symptom:</strong> TODO (the exact alert name, dashboard tile state or error text)</li>
+  <li><strong>Scheduled:</strong> TODO (cadence, or "not scheduled")</li>
+  <li><strong>Do NOT use it when:</strong> TODO (and which runbook to use instead)</li>
+</ul>
+</section>
+
+<section id="triage">
+<h2>Triage</h2>
+<pre class="ascii" data-diagram="triage">
+TODO symptom -> check -> fix, as a decision path
+</pre>
+<div class="mermaid" data-diagram="triage">
+flowchart TD
+  S[TODO symptom] --> C{TODO check}
+  C -->|yes| F1[TODO fix: procedure 1]
+  C -->|no| F2[TODO fix: escalate]
+</div>
+</section>
+
+<section id="scope" data-runbook="scope">
+<h2>Scope</h2>
+<table>
+  <thead><tr><th>System</th><th>Host / address</th><th>Software and version</th><th>As-built</th></tr></thead>
+  <tbody><tr><td>TODO</td><td>TODO</td><td>TODO</td><td><a href="TODO">TODO as-built</a></td></tr></tbody>
+</table>
+</section>
+
+<section id="system">
+<h2>The system at a glance</h2>
+<p>TODO one paragraph. The as-built holds the detail; this is what the operator needs on screen.</p>
+<pre class="ascii" data-diagram="dependencies ports dataflow">
+TODO
+</pre>
+<div class="mermaid" data-diagram="dependencies ports dataflow">
+flowchart LR
+  A[TODO] -->|TODO :port| B[TODO]
+</div>
+<pre class="ascii" data-diagram="monitoring">
+TODO what watches it, healthy vs broken, where the alert goes
+</pre>
+<div class="mermaid" data-diagram="monitoring">
+flowchart LR
+  M[TODO monitor] -->|healthy: TODO / broken: TODO| AL[TODO alert destination]
+</div>
+</section>
+
+<section id="authority" data-runbook="authority">
+<h2>Authority and access</h2>
+<ul>
+  <li><strong>May run it:</strong> TODO (role or named people)</li>
+  <li><strong>Access needed:</strong> TODO (role, login user, API key env var name, never the value)</li>
+  <li><strong>Approval:</strong> TODO (none for read-only; change ticket + who approves for anything that changes state)</li>
+</ul>
+</section>
+
+<section id="prerequisites" data-runbook="prerequisites">
+<h2>Prerequisites</h2>
+<ul>
+  <li>TODO</li>
+</ul>
+</section>
+
+<section id="backup" data-runbook="backup">
+<h2>Before you change anything</h2>
+<p>TODO what to capture so the old state can be restored.</p>
+<pre>TODO exact backup / snapshot / export command</pre>
+<!-- Read-only runbook? Replace the body with: data-na="reason of 15+ characters" on this section. -->
+</section>
+
+<section id="procedure" data-runbook="procedure">
+<h2>Procedure: TODO task name</h2>
+<ol>
+  <li class="rb-step" id="step-1">
+    <strong>TODO step name</strong>
+    <pre>TODO exact command, run from TODO</pre>
+    <p class="rb-expect"><strong>Expected:</strong> TODO what the output or screen shows</p>
+    <p class="rb-onfail"><strong>If it fails:</strong> TODO what to do, or which triage branch</p>
+  </li>
+  <!-- A step that cannot be undone gets data-irreversible on its <li>. -->
+</ol>
+</section>
+<!-- More tasks: repeat <section data-runbook="procedure"> with its own id and heading. -->
+
+<section id="point-of-no-return" data-runbook="point-of-no-return">
+<h2>Point of no return</h2>
+<p>TODO the step after which rollback no longer restores the old state, and what that means.</p>
+</section>
+
+<section id="rollback" data-runbook="rollback">
+<h2>Rollback</h2>
+<p><strong>Roll back when:</strong> TODO (the condition, not "if something goes wrong")</p>
+<pre>TODO exact rollback command</pre>
+</section>
+
+<section id="verification" data-runbook="verification">
+<h2>Verification</h2>
+<p>Each check proves the state changed. A command exiting 0 proves nothing.</p>
+<pre>TODO command whose output shows the new state</pre>
+</section>
+
+<section id="comms" data-runbook="comms">
+<h2>Communications</h2>
+<ul>
+  <li><strong>Before:</strong> TODO who is told, how, how far ahead</li>
+  <li><strong>After:</strong> TODO who is told, and where the record goes (ticket note)</li>
+</ul>
+</section>
+
+<section id="escalation" data-runbook="escalation">
+<h2>Escalation</h2>
+<table>
+  <thead><tr><th>Situation</th><th>Contact</th><th>Method</th></tr></thead>
+  <tbody><tr><td>TODO</td><td>TODO</td><td>TODO</td></tr></tbody>
+</table>
+</section>
+
+<section id="gaps" data-runbook="gaps">
+<h2>Open gaps</h2>
+<p>Values nobody collected. Each is marked <span>?</span> where it is used.</p>
+<ul>
+  <li>TODO, or replace the list with "None."</li>
+</ul>
+</section>
+
+<section id="review" data-runbook="review" data-last-tested="never" data-next-review="TODO-YYYY-MM-DD">
+<h2>Review and testing</h2>
+<table>
+  <thead><tr><th>Last tested</th><th>By</th><th>Result</th><th>Next review</th></tr></thead>
+  <tbody><tr><td>never</td><td>n/a</td><td>n/a</td><td>TODO</td></tr></tbody>
+</table>
+<p>Review this runbook by the date above, and whenever the system in Scope changes. A dry run
+by someone who did not write it counts as a test; record it here.</p>
+</section>

@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" data-doc-kind="{{KIND}}">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{TITLE}}</title>
+<style>
+:root {
+{{THEME_CSS}}
+}
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--bg); color: var(--text); font-family: var(--font-body); line-height: 1.55; }
+header.doc { border-bottom: 3px solid var(--brand-primary); padding: 20px 24px; display: flex; gap: 16px; align-items: center; }
+header.doc img { max-height: 48px; width: auto; }
+header.doc .org { color: var(--muted); font-size: 0.9rem; }
+header.doc h1 { margin: 0; font-size: 1.6rem; }
+main { max-width: 920px; margin: 0 auto; padding: 24px; }
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px 16px; padding: 12px 0; border-bottom: 1px solid var(--border); margin-bottom: 16px; }
+a { color: var(--brand-primary); }
+h2 { border-bottom: 1px solid var(--border); padding-bottom: 4px; margin-top: 32px; }
+h3 { color: var(--brand-accent); }
+table { border-collapse: collapse; width: 100%; margin: 12px 0; }
+th, td { border: 1px solid var(--border); padding: 6px 10px; text-align: left; vertical-align: top; }
+th { background: color-mix(in srgb, var(--brand-primary) 10%, var(--bg)); }
+code, pre { font-family: var(--font-mono); font-size: 0.92em; }
+pre { background: color-mix(in srgb, var(--text) 6%, var(--bg)); padding: 12px; overflow-x: auto; border-radius: 6px; }
+blockquote { margin: 12px 0; padding: 4px 16px; border-left: 4px solid var(--brand-accent); color: var(--muted); }
+footer { color: var(--muted); font-size: 0.85rem; border-top: 1px solid var(--border); padding: 16px 24px; text-align: center; }
+@media (max-width: 640px) { main { padding: 16px; } }
+</style>
+</head>
+<body>
+<header class="doc">
+{{LOGO}}
+<div><div class="org">{{ORG}}</div><h1>{{TITLE}}</h1></div>
+</header>
+<main>
+<nav class="toc"><a href="#provenance">Provenance</a> <a href="#body">Detail</a> <a href="#references">References</a> <a href="#revision-history">Revision history</a></nav>
+
+<h2 id="provenance">Provenance</h2>
+<ul>
+  <li><strong>Author:</strong> {{AUTHOR}}</li>
+  <li><strong>Organization:</strong> {{ORG}}</li>
+  <li><strong>Created:</strong> {{DATE}}</li>
+  <li><strong>Kind:</strong> {{KIND}}</li>
+</ul>
+
+<h2 id="body">Detail</h2>
+{{BODY}}
+
+<h2 id="references">References</h2>
+<ul><li>TODO: sources, tickets, related documents</li></ul>
+
+<h2 id="revision-history">Revision history</h2>
+<table>
+  <thead><tr><th>Rev</th><th>Date</th><th>Author</th><th>Change</th></tr></thead>
+  <tbody><tr><td>1.0</td><td>{{DATE}}</td><td>{{AUTHOR}}</td><td>Initial version</td></tr></tbody>
+</table>
+</main>
+<footer>{{ORG}}</footer>
+</body>
+</html>

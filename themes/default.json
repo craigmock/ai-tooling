@@ -1,0 +1,11 @@
+{
+  "name": "Default (light)",
+  "primary": "#1f6feb",
+  "accent": "#8250df",
+  "background": "#ffffff",
+  "text": "#1f2328",
+  "muted": "#59636e",
+  "border": "#d1d9e0",
+  "font_body": "Segoe UI, Helvetica, Arial, sans-serif",
+  "font_mono": "Consolas, Menlo, monospace"
+}
