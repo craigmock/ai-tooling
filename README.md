@@ -1,6 +1,6 @@
 # ai-tooling
 
-Assistant skills that look like they belong to your organization. The first time you run one, a short setup
+Skills for Claude Code and Codex that look like they belong to your organization. The first time you run one, a short setup
 wizard asks for your organization name, brand colors, fonts, logo, ticket or time tracking choice and output
 folders. It saves the answers in one local file, and every skill reads that file from then on.
 
@@ -19,14 +19,86 @@ Everything is plain Python 3 (standard library only) and Markdown. It runs on ma
 
 ## Install
 
-This repository is a plugin for Claude Code. Add it as a plugin source and enable it:
+Requirements: Python 3.9 or newer and git. The commands below install from the `craigmock/ai-tooling` repository
+on GitHub. You do not need your own copy of it first (see "New to git?" below).
+
+### Claude Code
 
 ```
-/plugin marketplace add <owner>/ai-tooling
-/plugin install ai-tooling
+/plugin install ai-tooling --marketplace craigmock/ai-tooling
 ```
 
-Or clone it and point your assistant at the `skills/` folder. Requirements: Python 3.9 or newer and git.
+If your version of Claude Code does not accept that line, add the source and install in two steps:
+
+```
+/plugin marketplace add craigmock/ai-tooling
+/plugin install ai-tooling@ai-tooling
+```
+
+### Codex
+
+Codex has no plugin marketplace, so a small script copies the skills to the folder Codex reads
+(`~/.agents/skills`). Clone the repository once, then run the script from inside it:
+
+```bash
+git clone https://github.com/craigmock/ai-tooling.git
+cd ai-tooling
+python3 tools/install-codex.py
+```
+
+In Codex, call a skill with a dollar sign, for example `$docs` or `$eos`. On macOS or Linux,
+`python3 tools/install-codex.py --link` links the skills to your clone instead of copying them, so a later
+`git pull` updates them in place.
+
+Codex support follows the shared `SKILL.md` format and has been tested only by running the scripts directly,
+not inside a live Codex session. If a skill cannot find its scripts, tell Codex to use the folder the
+`SKILL.md` was loaded from (each skill says so at the top).
+
+### Other assistants
+
+Any assistant that reads `SKILL.md` folders from `~/.agents/skills` can use the Codex steps above.
+
+## New to git? How this works
+
+You can skip this if you already use GitHub.
+
+**Do I need to copy ("fork" or "clone") this repository to my own account first?** No. For Claude Code, the
+install line above reads the skills straight from the publisher's GitHub repository. You never create a copy,
+and you never need to learn git for ordinary use.
+
+**What happens when the publisher makes an update?** Nothing changes on your computer by itself. When you want
+the latest version, refresh and update:
+
+```
+claude plugin marketplace update ai-tooling
+claude plugin update ai-tooling
+```
+
+For Codex, run `git pull` inside your clone and run `python3 tools/install-codex.py` again.
+
+**Will an update erase my settings?** No. Your organization name, colors and choices live in one file on your
+own computer (`~/.config/ai-tooling/config.json`, or `%APPDATA%\ai-tooling\config.json` on Windows). The
+repository never contains it and updates never touch it.
+
+**When would I fork it?** Only if you want to change the skills themselves and keep your changes. A fork is
+your own copy on GitHub. Fork it, change it, then install from your copy:
+`/plugin install ai-tooling --marketplace <your-account>/ai-tooling`. If you only want your own colors and
+wording, you do not need a fork: run `/setup`.
+
+**Words you will see**
+
+| Word | Meaning |
+|------|---------|
+| Repository ("repo") | A project folder whose history is tracked by git and stored on GitHub |
+| Clone | Download a copy of a repository to your computer |
+| Pull | Download the latest changes into a clone you already have |
+| Fork | Your own copy of someone else's repository on GitHub |
+| Marketplace | A repository that Claude Code can install plugins from |
+| Plugin | A bundle of skills that Claude Code installs and updates for you |
+
+**If the install fails with "not found" or a permission error.** Either the account name is wrong, or the
+repository is private and your GitHub account has not been given access. Ask the publisher to add you, then sign
+in once with the GitHub command line (`gh auth login`) and try again.
 
 ## First run
 
@@ -94,7 +166,9 @@ lines.
 ## Layout
 
 ```
-.claude-plugin/plugin.json    plugin manifest
+.claude-plugin/plugin.json    plugin manifest (Claude Code)
+.claude-plugin/marketplace.json  lets Claude Code install this repository by name
+tools/install-codex.py        copies the skills to ~/.agents for Codex
 lib/aitooling.py              config, wizard, theme tokens, tracking
 lib/WIZARD.md                 how a skill runs the wizard
 themes/*.json                 theme presets

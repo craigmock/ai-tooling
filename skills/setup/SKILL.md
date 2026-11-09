@@ -5,6 +5,8 @@ description: Run or change the first-run setup for ai-tooling - organization nam
 
 # /setup
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$setup`.
+
 Creates or edits the one config file every ai-tooling skill reads. See `lib/WIZARD.md` for the full flow.
 
 ## Steps

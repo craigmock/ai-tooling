@@ -5,6 +5,8 @@ description: End-of-session wrap-up. Summarize what was done, show anything unco
 
 # /eos
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$eos`.
+
 ## Step 0: organization config
 
 ```bash

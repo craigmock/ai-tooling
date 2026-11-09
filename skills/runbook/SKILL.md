@@ -5,6 +5,8 @@ description: Write, upgrade or check an operator runbook to a fixed section cont
 
 # /runbook
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$runbook`.
+
 A runbook is a procedure someone can follow at 3 a.m. without asking the author. This skill scaffolds one in the
 organization's theme and then checks it against a contract so a runbook cannot pass with no steps in it.
 

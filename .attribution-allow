@@ -2,3 +2,5 @@
 # Format: path-glob | reason
 # Only the exact dependency name is allowed in these files; credit lines and trailers never are.
 README.md | Install instructions name the plugin host this repository is a plugin for.
+.claude-plugin/*.json | The plugin manifests describe which assistants the skills run in.
+tools/install-codex.py | The docstring says which assistant needs no install script.

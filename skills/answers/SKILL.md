@@ -5,6 +5,8 @@ description: Turn a pile of open decisions into an interactive HTML answer sheet
 
 # /answers
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$answers`.
+
 ## Step 0: organization config
 
 ```bash

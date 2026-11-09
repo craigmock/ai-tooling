@@ -55,6 +55,8 @@ RULES += [
 # The plugin host requires a directory named after it (".<name>-plugin"); that path is not attribution.
 VENDOR = re.compile(r"(?<!\.)\b(" + j("cla", "ude") + "|" + j("anthro", "pic") + r")\b(?!-plugin)(\s+\w+)?", re.I)
 DEPENDENCY_NAME = j("cla", "ude") + " code"
+# The one personal-account reference that may appear: this repository's own published name, in install lines.
+PUBLIC_REPO = j("craig", "mock") + "/ai-tooling"
 
 SKIP_DIRS = {".git", "__pycache__", "node_modules"}
 ALLOW_FILE = ".attribution-allow"
@@ -83,11 +85,14 @@ def files(root: Path):
 
 def scan_text(label: str, text: str, vendor_ok: bool, out: list) -> None:
     for n, line in enumerate(text.splitlines(), 1):
+        rline = line.replace(PUBLIC_REPO, "")
         for rule, rx in RULES:
-            for m in rx.finditer(line):
+            for m in rx.finditer(rline):
                 out.append("%s:%d: [%s] %s" % (label, n, rule, line.strip()[:120]))
                 break
-        for m in VENDOR.finditer(line):
+        # In an allowed file the host's real plugin command line is a dependency reference too.
+        vline = re.sub(r"\bclaude plugin\b", "", line, flags=re.I) if vendor_ok else line
+        for m in VENDOR.finditer(vline):
             if vendor_ok and m.group(0).strip().lower() == DEPENDENCY_NAME:
                 continue
             out.append("%s:%d: [attribution:vendor-name] %s" % (label, n, line.strip()[:120]))

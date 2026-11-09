@@ -1,0 +1,16 @@
+{
+  "name": "ai-tooling",
+  "owner": {
+    "name": "ai-tooling contributors"
+  },
+  "metadata": {
+    "description": "Organization-neutral assistant skills with a first-run setup wizard."
+  },
+  "plugins": [
+    {
+      "name": "ai-tooling",
+      "source": "./",
+      "description": "Skills for session wrap-up, branded documents, runbooks, loose ends, decision sheets and resume prompts, all themed from one local config. Works with Claude Code (plugin) and Codex (skills folder)."
+    }
+  ]
+}

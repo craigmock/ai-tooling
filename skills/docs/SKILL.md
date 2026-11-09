@@ -5,6 +5,8 @@ description: Create a branded HTML document (report, as-built, summary, runbook 
 
 # /docs
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$docs`.
+
 Produces a self-contained HTML document themed from the organization config. The first run of any ai-tooling
 skill asks a few setup questions; this skill does the same if no config exists yet.
 

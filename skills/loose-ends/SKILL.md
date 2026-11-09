@@ -5,6 +5,8 @@ description: Sweep the current session for loose ends before moving on - unfinis
 
 # /loose-ends
 
+> Paths below use `${CLAUDE_SKILL_DIR}`, this skill's own folder. If your assistant does not set it (Codex does not), use the folder this SKILL.md was loaded from instead. In Codex, call the skill as `$loose-ends`.
+
 ## Step 0: organization config
 
 ```bash
