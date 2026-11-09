@@ -65,6 +65,33 @@ the same Claude Code session):
 
 Then run a skill, for example `/docs`, to start the setup wizard.
 
+### If your GitHub account is an Enterprise Managed User, or the lines above fail
+
+This repository is public, so installing it needs no GitHub account and no invitation. A managed account can read and
+clone it. On a repository outside its enterprise, a managed account cannot fork it, open issues or pull requests, or
+star it ([GitHub's list of what managed accounts can do](https://docs.github.com/en/enterprise-cloud@latest/admin/managing-iam/understanding-iam-for-enterprises/abilities-and-restrictions-of-managed-user-accounts)).
+
+Claude Code's documentation says the short `craigmock/ai-tooling` form tries SSH first, and that installs typed inside
+a session do not fall back to HTTPS when you have no GitHub SSH key ([Host and maintain a
+marketplace](https://code.claude.com/docs/en/plugins/host-marketplace), "Grant access to a private marketplace"). If
+that is you, type these in a normal terminal, not inside Claude Code. They use the full address, so SSH is never tried:
+
+```bash
+export CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1
+claude plugin marketplace add https://github.com/craigmock/ai-tooling.git
+claude plugin install ai-tooling@ai-tooling
+```
+
+To keep the first line for every new terminal, add it to your shell start-up file (`~/.bashrc` on Ubuntu and WSL).
+These commands and the two update commands under "Updating" were run with no GitHub credentials and no SSH keys,
+and worked. If your network blocks github.com, download the repository as a zip, unpack it as `~/ai-tooling`, and add
+the folder instead:
+
+```bash
+claude plugin marketplace add ~/ai-tooling
+claude plugin install ai-tooling@ai-tooling
+```
+
 ### Step 2b: Codex
 
 (Skip this if you use Claude Code.) Codex has no plugin marketplace, so a small script copies the skills to the folder Codex reads
@@ -151,6 +178,13 @@ your own copy on GitHub. Fork it, change it, then install from your copy:
 `/plugin install ai-tooling --marketplace <your-account>/ai-tooling`. If you only want your own colors and
 wording, you do not need a fork: run `/setup`.
 
+A managed GitHub account cannot fork a repository outside its enterprise. Make an ordinary copy instead: clone this
+repository, create an empty repository in your company's GitHub, point the clone at it with
+`git remote set-url origin YOUR-REPOSITORY-URL`, push it with `git push -u origin main`, and keep the `LICENSE` file.
+People in your company then install from it by its full address, after `gh auth login` and `gh auth setup-git` so
+Claude Code can use their stored sign-in: `claude plugin marketplace add https://github.com/YOUR-ORG/YOUR-REPOSITORY.git`.
+This route, from a private repository, has not been tested.
+
 **Words you will see**
 
 | Word | Meaning |
@@ -162,9 +196,12 @@ wording, you do not need a fork: run `/setup`.
 | Marketplace | A repository that Claude Code can install plugins from |
 | Plugin | A bundle of skills that Claude Code installs and updates for you |
 
-**If the install fails with "not found" or a permission error.** Either the account name is wrong, or the
-repository is private and your GitHub account has not been given access. Ask the publisher to add you, then sign
-in once with the GitHub command line (`gh auth login`) and try again.
+**If the install fails with "not found" or a permission error.** This repository is public, so you do not need
+access to it. The usual causes are Claude Code trying SSH first without a GitHub SSH key, a typo in the name, or a
+network that blocks github.com. Use the full `https://` address with `CLAUDE_CODE_PLUGIN_PREFER_HTTPS=1` in a normal
+terminal, as shown under "If your GitHub account is an Enterprise Managed User", or add a downloaded folder. If you
+installed from a private copy of your own, such as a fork or a copy in your company's GitHub, that copy needs your
+GitHub sign-in: run `gh auth login`, then `gh auth setup-git`, and try again.
 
 ## First run
 
